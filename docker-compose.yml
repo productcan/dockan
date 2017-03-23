@@ -1,0 +1,22 @@
+version: '2'
+services:
+  mysql:
+    container_name: can-mysql
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+    volumes:
+      - db:/var/lib/mysql
+  php:
+    container_name: can-php
+    image: php:7.1-apache
+    environment:
+      - "TZ=Asia/Tokyo"
+    ports:
+      - '80:80'
+    volumes:
+      - ./var/lib/boot2docker/containers:/var/www/html
+    depends_on:
+      - mysql
+volumes:
+  db:
